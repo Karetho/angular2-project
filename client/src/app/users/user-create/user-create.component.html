@@ -1,0 +1,41 @@
+<form
+  class="form"
+  [formGroup]="checkoutForm"
+  (ngSubmit)="onSubmit(checkoutForm.value)"
+>
+  <mat-form-field class="input" appearance="outline">
+    <mat-label>First name</mat-label>
+    <input
+      matInput
+      placeholder="First name"
+      [formControl]="firstName"
+      required
+    />
+    <mat-error *ngIf="firstName.invalid">{{
+      getErrorFirstNameMessage()
+    }}</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="input" appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input matInput placeholder="Last name" [formControl]="lastName" required />
+    <mat-error *ngIf="lastName.invalid">{{
+      getErrorLastNameMessage()
+    }}</mat-error>
+  </mat-form-field>
+  <br />
+  <mat-form-field class="input" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      placeholder="Enter your email"
+      [formControl]="email"
+      required
+    />
+    <mat-error *ngIf="email.invalid">{{ getErrorMailMessage() }}</mat-error>
+  </mat-form-field>
+  <br />
+  <button mat-raised-button color="primary" class="button" type="submit">
+    Send
+  </button>
+</form>

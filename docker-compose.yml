@@ -1,0 +1,42 @@
+version: "3"
+services:
+  client:
+    image: angular-client
+    build: ./client
+    ports:
+      - "4200:4200"
+    working_dir: /client/src/app
+    volumes:
+      - ./client:/client/src/app
+    depends_on:
+      - api
+    networks:
+      - webappnetwork
+  api:
+    image: angular-api
+    build: ./api
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./api:/api
+      - /api/node_modules
+    depends_on:
+      - mongodb
+    networks:
+      - webappnetwork
+    environment:
+      WAIT_HOSTS: mongodb:27017
+
+  mongodb:
+    image: mongo
+    volumes:
+      - ./data-node:/data/db
+    ports:
+      - 27017:27017
+    command: mongod --noauth --smallfiles
+    networks:
+      - webappnetwork
+
+networks:
+  webappnetwork:
+    driver: bridge
