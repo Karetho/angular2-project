@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 
 import { UsersService } from "../service/users.service";
 import { User } from "../service/user";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
+import { MessageService } from "src/app/message.service";
 
 @Component({
   selector: "app-users-list",
@@ -24,7 +25,11 @@ export class UsersListComponent implements OnInit, OnDestroy {
     "delete"
   ];
 
-  constructor(private usersService: UsersService, private router: Router) {}
+  constructor(
+    private usersService: UsersService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   fetchUsers() {
     this.usersSubscription = this.usersService.getUsers().subscribe(user => {
@@ -45,6 +50,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .deleteUser(userId)
       .subscribe(oldUser => {
         this.userDeleted = oldUser;
+        this.messageService.sendMessage("User has been deleted");
         this.fetchUsers();
       });
   }

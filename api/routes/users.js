@@ -41,12 +41,11 @@ router.route("/:id").get(function(req, res) {
 //  Update Specific
 router.route("/:id").put(function(req, res) {
   Users.findById(req.params.id, function(err, item) {
-    console.log(item);
     item = Object.assign(item, req.body);
     item
       .save()
       .then(item => {
-        res.json("Updated");
+        res.json(item);
       })
       .catch(err => {
         res.status(400).send("unable to update the database");

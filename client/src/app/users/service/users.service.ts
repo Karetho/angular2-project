@@ -39,7 +39,9 @@ export class UsersService {
     term = term.trim();
 
     // Add safe, URL encoded search parameter if there is a search term
-    const options = term ? { params: new HttpParams().set("name", term) } : {};
+    const options = term
+      ? { params: new HttpParams().set("firstName", term) }
+      : {};
 
     return this.http
       .get<User[]>(this.apiUrl, options)

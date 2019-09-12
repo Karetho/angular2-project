@@ -1,3 +1,4 @@
+import { MessageService } from "src/app/message.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UsersService } from "../service/users.service";
 import { FormBuilder, Validators, ValidationErrors } from "@angular/forms";
@@ -17,7 +18,8 @@ export class UserCreateComponent implements OnInit {
   constructor(
     private userService: UsersService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
   getErrorMailMessage() {
     return this.checkoutForm.get("email").hasError("required")
@@ -69,13 +71,14 @@ export class UserCreateComponent implements OnInit {
     }
 
     console.warn("Your user has been created", customerData);
-    this.userSubscription = this.userService
-      .addUser(customerData)
-      .subscribe(
-        newUser => this.router.navigateByUrl("/users"),
-        err => console.log(err),
-        () => this.userSubscription.unsubscribe()
-      );
+    this.userSubscription = this.userService.addUser(customerData).subscribe(
+      newUser => {
+        this.messageService.sendMessage("New user has been created");
+        this.router.navigateByUrl("/users");
+      },
+      err => console.log(err),
+      () => this.userSubscription.unsubscribe()
+    );
   }
 
   ngOnInit() {

@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 
+import { MessagesComponent } from "./messages/messages.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { UserCreateComponent } from "./users/user-create/user-create.component";
@@ -22,13 +23,16 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { UserEditComponent } from "./users/user-edit/user-edit.component";
 import { MatMenuModule } from "@angular/material/menu";
 import { UsersListComponent } from "./users/users-list/users-list.component";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     UsersListComponent,
     UserCreateComponent,
-    UserEditComponent
+    UserEditComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import { UsersListComponent } from "./users/users-list/users-list.component";
     MatButtonModule,
     MatMenuModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [UsersService, HttpErrorHandler, MessageService],
   bootstrap: [AppComponent]

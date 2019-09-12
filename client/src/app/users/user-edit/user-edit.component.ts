@@ -1,3 +1,4 @@
+import { MessageService } from "./../../message.service";
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { UsersService } from "../service/users.service";
 import { FormBuilder, Validators, ValidationErrors } from "@angular/forms";
@@ -21,7 +22,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
     private usersService: UsersService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService
   ) {
     this.checkoutForm = this.formBuilder.group({
       firstName: ["", Validators.required],
@@ -82,7 +84,11 @@ export class UserEditComponent implements OnInit, OnDestroy {
     this.editedUserSubscription = this.usersService
       .updateUser(customerData)
       .subscribe(
-        newUser => this.router.navigateByUrl("/users"),
+        newUser => {
+          console.log(newUser);
+          this.messageService.sendMessage("User has been edited");
+          this.router.navigateByUrl("/users");
+        },
         err => console.log(err),
         () => this.editedUserSubscription.unsubscribe()
       );
