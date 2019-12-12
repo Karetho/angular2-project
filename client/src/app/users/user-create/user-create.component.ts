@@ -73,7 +73,7 @@ export class UserCreateComponent implements OnInit {
     console.warn("Your user has been created", customerData);
     this.userSubscription = this.userService.addUser(customerData).subscribe(
       newUser => {
-        this.messageService.sendMessage("New user has been created");
+        this.messageService.add("New user has been created");
         this.router.navigateByUrl("/users");
       },
       err => console.log(err),

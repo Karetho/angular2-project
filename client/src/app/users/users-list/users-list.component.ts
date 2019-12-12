@@ -50,7 +50,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .deleteUser(userId)
       .subscribe(oldUser => {
         this.userDeleted = oldUser;
-        this.messageService.sendMessage("User has been deleted");
+        this.messageService.add("User has been deleted");
         this.fetchUsers();
       });
   }

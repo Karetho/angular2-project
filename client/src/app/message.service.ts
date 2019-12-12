@@ -6,7 +6,7 @@ export class MessageService {
   messages: string[] = [];
   private subject = new Subject<any>();
 
-  sendMessage(message: string) {
+  add(message: string) {
     this.subject.next({ text: message });
     this.messages.push(message);
   }

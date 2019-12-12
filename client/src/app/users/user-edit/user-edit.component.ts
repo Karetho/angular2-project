@@ -86,7 +86,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       .subscribe(
         newUser => {
           console.log(newUser);
-          this.messageService.sendMessage("User has been edited");
+          this.messageService.add("User has been edited");
           this.router.navigateByUrl("/users");
         },
         err => console.log(err),
